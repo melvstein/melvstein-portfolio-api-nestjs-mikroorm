@@ -3,6 +3,7 @@ import { v4 } from 'uuid';
 
 const RoleSchema = defineEntity({
   name: 'Role',
+  tableName: 'roles',
   properties: {
     id: p
       .uuid()

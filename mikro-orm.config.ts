@@ -1,5 +1,6 @@
 import { Migrator } from '@mikro-orm/migrations';
 import { defineConfig, PostgreSqlDriver } from '@mikro-orm/postgresql';
+import { Role } from './src/modules/role/entities/role.entity.js';
 import { config } from 'dotenv';
 
 config({
@@ -13,9 +14,7 @@ export default defineConfig({
   user: process.env.DATABASE_USER,
   password: process.env.DATABASE_PASSWORD,
 
-  entities: ['./dist/**/*.entity.js'],
-
-  entitiesTs: ['./src/**/*.entity.ts'],
+  entities: [Role],
 
   migrations: {
     path: './dist/migrations',

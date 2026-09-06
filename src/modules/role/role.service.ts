@@ -1,18 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { MikroORM, EntityManager } from '@mikro-orm/core';
+import { EntityManager } from '@mikro-orm/core';
 import { CreateRoleDto } from './dto/create-role.dto.js';
 import { UpdateRoleDto } from './dto/update-role.dto.js';
 import { Role } from './entities/role.entity.js';
 
 @Injectable()
 export class RoleService {
-  constructor(
-    private readonly orm: MikroORM,
-    private readonly em: EntityManager,
-  ) {}
+  constructor(private readonly em: EntityManager) {}
 
-  create(createRoleDto: CreateRoleDto) {
-    return 'This action adds a new role';
+  async create(createRoleDto: CreateRoleDto) {
+    const roleRepository = this.em.getRepository(Role);
+    const roleCreated = roleRepository.create({
+      ...createRoleDto,
+      updatedAt: new Date(),
+    });
+
+    await this.em.flush();
+    return roleCreated;
   }
 
   findAll() {
