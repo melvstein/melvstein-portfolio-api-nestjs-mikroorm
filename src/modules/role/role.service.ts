@@ -8,7 +8,7 @@ import { Role } from './entities/role.entity.js';
 export class RoleService {
   constructor(private readonly em: EntityManager) {}
 
-  async create(createRoleDto: CreateRoleDto) {
+  async create(createRoleDto: CreateRoleDto): Promise<Role> {
     const roleRepository = this.em.getRepository(Role);
     const roleCreated = roleRepository.create({
       ...createRoleDto,
@@ -19,9 +19,9 @@ export class RoleService {
     return roleCreated;
   }
 
-  findAll() {
+  async findAll(): Promise<Role[]> {
     const roleRepository = this.em.getRepository(Role);
-    return roleRepository.findAll();
+    return await roleRepository.findAll();
   }
 
   findOne(id: number) {
